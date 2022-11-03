@@ -1,11 +1,11 @@
 public class Lease {
-    private String carBrandModel;
+    private Car car;
     private int leaseStart;
     private int leaseEnd;
     private int monthlyCost;
     
-    public Lease(String carBrandMode, int leaseStart, int leaseEnd, int monthlyCost){
-        setCarBrandModel(carBrandMode);
+    public Lease(Car car, int leaseStart, int leaseEnd, int monthlyCost){
+        setCar(car);
         setLeaseStart(leaseStart);
         setLeaseEnd(leaseEnd);
         setMonthlyCost(monthlyCost);
@@ -48,12 +48,12 @@ public class Lease {
         return getMonthlyCost()*(getLeaseEnd() - getLeaseStart() + 1);
     }
 
-    public void setCarBrandModel(String carBrandModel){
-        this.carBrandModel = carBrandModel;
+    public void setCarBrandModel(Car car){
+        this.car = car;
     }
 
-    public String getCarBrandModel(){
-        return carBrandModel;
+    public String getCar(){
+        return car;
     }
 
     public void setLeaseStart(int leaseStart){
