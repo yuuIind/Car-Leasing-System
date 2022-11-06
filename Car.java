@@ -6,8 +6,12 @@ public class Car{
         setCarBrandModel(carBrandModel);
         setCarModelYear(carModelYear);
     }
+    public Car(){
+        setCarBrandModel("Default Brand Model");
+        setCarModelYear(0);
+    }
     public Car(String carBrandModel){
-        this(carBrandModel, -1);
+        this(carBrandModel, 0);
     }
     public void setCarBrandModel(String carBrandModel){
         this.carBrandModel = carBrandModel;
