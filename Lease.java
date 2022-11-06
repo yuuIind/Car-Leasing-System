@@ -1,43 +1,39 @@
 public class Lease {
-    private String carBrandModel;
+    private Car car;
     private int leaseStart;
     private int leaseEnd;
     private int monthlyCost;
     
-    public Lease(String carBrandMode, int leaseStart, int leaseEnd, int monthlyCost){
-        setCarBrandModel(carBrandMode);
-        setLeaseStart(leaseStart);
-        setLeaseEnd(leaseEnd);
-        setMonthlyCost(monthlyCost);
+    public Lease(){
+        car = new Car();
+        setLeaseStart(1);
+        setLeaseEnd(12);
+        setMonthlyCost(0);
     }
 
-    public Lease(int leaseStart, int leaseEnd, int monthlyCost){
-        this("Generic Car Model", leaseStart, leaseEnd, monthlyCost);
-    }
-
-    public Lease(String carBrandMode, int leaseStart, int leaseEnd){
-        this(carBrandMode, leaseStart, leaseEnd, 9999);
+    public Lease(int carModelYear){
+        car = new Car();
+        setLeaseStart(1);
+        setLeaseEnd(12);
+        setMonthlyCost(0);
+        getCar().setCarModelYear(carModelYear);
     }
 
     public void displayInfo(){
-        if(getLeaseEnd() < getLeaseStart()){ // check calculateTotalPrice()
-            System.out.println("Lease of " 
-            + getCarBrandModel()
-            + " starts at " 
-            + getLeaseStart() 
-            + ". Month ends at "
-            + getLeaseEnd() 
-            + ". Month of next year with cost " // since you can't lease backwards in time
-            + calculateTotalPrice());
+        String s = "Lease of " + getCar().getCarBrandModel();
+
+        if(getCar().getCarModelYear() != 0){
+            s = s + " for the " + getCar().getCarModelYear() + " model year";
         }
-        System.out.println("Lease of " 
-            + getCarBrandModel()
-            + " starts at " 
-            + getLeaseStart() 
-            + ". Month ends at "
-            + getLeaseEnd() 
-            + ". Month with cost "
-            + calculateTotalPrice());
+
+        s += " starts at " + getLeaseStart() + ". Month ends at " + getLeaseEnd();
+
+        if(getLeaseEnd() < getLeaseStart()){ // check calculateTotalPrice()
+            s = s + ". Month of next year with cost " + calculateTotalPrice();
+        }
+
+        s += ". Month with cost " + calculateTotalPrice();
+        System.out.println(s);
     }
     public int calculateTotalPrice(){
         if(getLeaseEnd() < getLeaseStart()){ 
@@ -48,12 +44,25 @@ public class Lease {
         return getMonthlyCost()*(getLeaseEnd() - getLeaseStart() + 1);
     }
 
-    public void setCarBrandModel(String carBrandModel){
-        this.carBrandModel = carBrandModel;
+    public void setCar(Car car){
+        this.car = car;
     }
 
-    public String getCarBrandModel(){
-        return carBrandModel;
+    public void setCar(String carBrandModel, int carModelYear){
+        this.car.setCarBrandModel(carBrandModel);
+        this.car.setCarModelYear(carModelYear);
+    }
+
+    public void setCar(String carBrandModel){  
+        this.car.setCarBrandModel(carBrandModel);
+    }
+
+    public void setCar(int carModelYear){
+        this.car.setCarModelYear(carModelYear);
+    }
+
+    public Car getCar(){
+        return car;
     }
 
     public void setLeaseStart(int leaseStart){
@@ -75,7 +84,7 @@ public class Lease {
     }
 
     public void setMonthlyCost(int monthlyCost){
-        this.monthlyCost = monthlyCost;
+        this.monthlyCost = ((monthlyCost >= 0) ? monthlyCost : -1);
     }
 
     public int getMonthlyCost(){
