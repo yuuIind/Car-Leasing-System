@@ -33,7 +33,7 @@ public class Lease {
         }
 
         s += ". Month with cost " + calculateTotalPrice();
-        System.out.println(s);
+        System.out.println(s+"\n\n");
     }
     public int calculateTotalPrice(){
         if(getLeaseEnd() < getLeaseStart()){ 
