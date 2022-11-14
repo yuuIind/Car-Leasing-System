@@ -22,7 +22,16 @@ public class Car{
     }
 
     public void setCarModelYear(int carModelYear){
-        this.carModelYear = carModelYear;
+        if (carModelYear < 1950){ // models starts from year 1950
+            this.carModelYear = 0;
+        }
+        else if (carModelYear > 2022){ // and goes up to 2022
+            this.carModelYear = 0;     // values other than valid model years are set as
+                                        // the default value, 0
+        }
+        else {
+            this.carModelYear = carModelYear;
+        }
     }
 
     public int getCarModelYear(){

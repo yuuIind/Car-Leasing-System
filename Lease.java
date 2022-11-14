@@ -3,42 +3,50 @@ public class Lease {
     private int leaseStart;
     private int leaseEnd;
     private int monthlyCost;
+
+    private String leaseId;
     
     public Lease(){
         car = new Car();
         setLeaseStart(1);
         setLeaseEnd(12);
         setMonthlyCost(0);
+        getCar().setCarModelYear(0);
+        setLeaseId(null);
     }
 
-    public Lease(int carModelYear){
-        car = new Car();
-        setLeaseStart(1);
-        setLeaseEnd(12);
-        setMonthlyCost(0);
-        getCar().setCarModelYear(carModelYear);
+    public Lease(Car car, int leaseStart, int leaseEnd, int monthlyCost, String leaseId ){
+        setCar(car);
+        setLeaseStart(leaseStart);
+        setLeaseEnd(leaseEnd);
+        setMonthlyCost(monthlyCost);
+        setLeaseId(leaseId);
+    }
+
+    public Lease(String carBrandModel, int carModelYear, int leaseStart, int leaseEnd, int monthlyCost, String leaseId ){
+        setCar(carBrandModel, carModelYear);
+        setLeaseStart(leaseStart);
+        setLeaseEnd(leaseEnd);
+        setMonthlyCost(monthlyCost);
+        setLeaseId(leaseId);
     }
 
     public void displayInfo(){
         String s = "Lease of " + getCar().getCarBrandModel();
-
         if(getCar().getCarModelYear() != 0){
             s = s + " for the " + getCar().getCarModelYear() + " model year";
         }
-
         s += " starts at " + getLeaseStart() + ". Month ends at " + getLeaseEnd();
-
         if(getLeaseEnd() < getLeaseStart()){ // check calculateTotalPrice()
             s = s + ". Month of next year with cost " + calculateTotalPrice();
         }
-
         s += ". Month with cost " + calculateTotalPrice();
-        System.out.println(s+"\n\n");
+        System.out.println(s+"\n");
     }
     public int calculateTotalPrice(){
         if(getLeaseEnd() < getLeaseStart()){ 
             //if the end date is less than the start date, assuming the end date is meant the next year, 
-            //lease period can still go up to 12 month at max. However calculateTotalPrice needs this little tweak
+            //lease period can still go up to 12 month at max. However, calculateTotalPrice needs this little tweak
             return getMonthlyCost()*(getLeaseEnd() - getLeaseStart() + 13);
         }
         return getMonthlyCost()*(getLeaseEnd() - getLeaseStart() + 1);
@@ -89,5 +97,13 @@ public class Lease {
 
     public int getMonthlyCost(){
         return monthlyCost;
+    }
+
+    public void setLeaseId(String leaseId){
+        this.leaseId = leaseId;
+    }
+
+    public String getLeaseId(){
+        return leaseId;
     }
 }
