@@ -5,7 +5,6 @@ public class Menu {
 	static ArrayList<Lease> leaseList = new ArrayList<Lease>();
 
 	public static void main(String[] args) {
-		int index = -1;
 		int sysCommand;
 		Scanner nScanner = new Scanner(System.in);
 		
@@ -25,15 +24,11 @@ public class Menu {
 					break;
 
 				case 1:
-					leaseList.add(new Lease());
-					index += 1;
-					createLease(leaseList, index, 1);
+					leaseList.add(createLease(1));
 					break;
 
 				case 2:
-					leaseList.add(new Lease());
-					index += 1;
-					createLease(leaseList, index, 2);
+					leaseList.add(createLease(2));
 					break;
 
 				case 3:
@@ -48,8 +43,13 @@ public class Menu {
 						System.out.println("\tCars with model year between "
 						+ l.getLowerLimit() + " and " + ((l.getUpperLimit() != -1) ? (l.getUpperLimit()-1):"above")
 						+ ": $" + l.getPrice() + " per month\n");
-					}
-					break;*/
+					}*/
+					Scanner scanner = new Scanner(System.in);
+					System.out.println("Please enter car lease owner id:");
+					String OwnerId = scanner.nextLine();
+					String s = "Your lease cost is " + calculateCost(OwnerId) + "TL\n";
+					System.out.println(s);
+					break;
 
 				default:
 					System.out.println("ERROR: Invalid Command.");
@@ -58,51 +58,57 @@ public class Menu {
 			}
 		} while(sysCommand != 0);
 	}
-	public static void createLease(ArrayList<Lease> list, int index, int command) {
+	public static Lease createLease(int command) {
 		Scanner scanner = new Scanner(System.in);
+		Lease lease = new Lease();
 
 		System.out.println("Lease Owner ID:");
-		list.get(index).setLeaseId(scanner.nextLine());
+		lease.setLeaseId(scanner.nextLine());
 
 		if(command == 2){
 			System.out.println("Model Year:");
 			int modelYear = scanner.nextInt();
 			scanner.nextLine();
-			list.get(index).setCar(modelYear);
+			lease.setCar(modelYear);
 			for(LeasePrice l : LeasePrice.values()){
 				if( (l.getLowerLimit() <= modelYear) && (modelYear < l.getUpperLimit() )){
-					list.get(index).setMonthlyCost(l.getPrice());
+					lease.setMonthlyCost(l.getPrice());
 				}
 			}
 		}
 
 		System.out.println("Brand and Model:");
-		list.get(index).setCar(scanner.nextLine());
+		lease.setCar(scanner.nextLine());
 
 		System.out.println("Lease Starts:");
-		list.get(index).setLeaseStart(scanner.nextInt());
+		lease.setLeaseStart(scanner.nextInt());
 		scanner.nextLine();
 
 		System.out.println("Lease Ends: ");
-		list.get(index).setLeaseEnd(scanner.nextInt());
+		lease.setLeaseEnd(scanner.nextInt());
 		scanner.nextLine();
 
 		if(command == 1) {
 			System.out.println("Monthly Cost: ");
-			list.get(index).setMonthlyCost(scanner.nextInt());
+			lease.setMonthlyCost(scanner.nextInt());
 			scanner.nextLine();
 		}
+
 		String s = "\nLease created!\n\n";
 		if(command == 2){
-			s = "\nLease created with model year as "+ list.get(index).getCar().getCarModelYear() +"!\n";
+			s = "\nLease created with model year as "+ lease.getCar().getCarModelYear() +"!\n";
 		}
 		System.out.println(s);
+
+		return lease;
 	}
 
-	public static int calculateCost(int OwnerId) {
-		//for (leaseList) {
-
-		//}
+	public static int calculateCost(String OwnerId) {
+		for (Lease lease : leaseList) {
+			if(OwnerId.equals(lease.getLeaseId())){
+				return lease.calculateTotalPrice();
+			}
+		}
 		return 0;
 	}
 }
