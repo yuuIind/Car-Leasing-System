@@ -2,17 +2,21 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Menu {
-	static ArrayList<Lease> leaseList = new ArrayList<Lease>();
+	static ArrayList<Lease> leaseList = new ArrayList<>();
+	static ArrayList<Insurance> insuranceList = new ArrayList<>();
+	static ExtraServices Type1_service = new ExtraServices("1",200);
+	static ExtraServices Type2_service = new ExtraServices("2",100);
 
 	public static void main(String[] args) {
 		int sysCommand;
 		Scanner nScanner = new Scanner(System.in);
-		
 		do {
 			System.out.println("1. Create new Lease");
-			System.out.println("2. Create new Lease with Model Year");
-			System.out.println("3. Display all Leases");
-			System.out.println("4. Display Lease Price");
+			System.out.println("2. Create new Short Term Lease");
+			System.out.println("3. Create new Long Term Lease");
+			System.out.println("4. Display all Leases");
+			System.out.println("5. Display Lease Price");
+			System.out.println("6. Calculate Insurances");
 			System.out.println("0. Exit");
 			sysCommand = nScanner.nextInt();
 			nScanner.nextLine();
@@ -23,21 +27,24 @@ public class Menu {
 					nScanner.close();
 					break;
 
-				case 1:
+				case 1: // Ordinary Lease - Monthly
 					leaseList.add(createLease(1));
 					break;
 
-				case 2:
+				case 2: // ShortTermLease - Daily
 					leaseList.add(createLease(2));
 					break;
 
-				case 3:
+				case 3: // LongTermLease - Yearly
+					leaseList.add(createLease(3));
+					break;
+				case 4:
 					for (Lease lease : leaseList) {
 						lease.displayInfo();
 					}
 					break;
 
-				case 4:
+				case 5:
 					/*System.out.println("Lease price table\n");
 					for(LeasePrice l : LeasePrice.values()){
 						System.out.println("\tCars with model year between "
@@ -51,6 +58,20 @@ public class Menu {
 					System.out.println(s);
 					break;
 
+				case 6:
+					for (Insurance i : insuranceList){
+						if(i instanceof Lease){
+							System.out.println("Insurance for " + ((Lease) i).getCar().getCarBrandModel()
+									+ " is " + i.makeInsurance());
+						}
+						else if(i instanceof ExtraServices){
+							System.out.println("Insurance for Service Type " + ((ExtraServices) i).getType()
+									+ " is " + i.makeInsurance());
+						}
+						}
+					System.out.println();
+					break;
+
 				default:
 					System.out.println("ERROR: Invalid Command.");
 					System.out.println("Please, enter a valid command.\n");
@@ -60,20 +81,27 @@ public class Menu {
 	}
 	public static Lease createLease(int command) {
 		Scanner scanner = new Scanner(System.in);
-		Lease lease = new Lease();
+		Lease lease;
+		if(command == 2){
+			lease = new ShortTermLease();
+		}
+		else if(command == 3){
+			lease = new LongTermLease();
+		}
+		else{
+			lease = new Lease();
+		}
 
-		System.out.println("Lease Owner ID:");
+		System.out.println("\nLease Owner ID:");
 		lease.setLeaseId(scanner.nextLine());
 
-		if(command == 2){
-			System.out.println("Model Year:");
-			int modelYear = scanner.nextInt();
-			scanner.nextLine();
-			lease.setCar(modelYear);
-			for(LeasePrice l : LeasePrice.values()){
-				if( (l.getLowerLimit() <= modelYear) && (modelYear < l.getUpperLimit() )){
-					lease.setMonthlyCost(l.getPrice());
-				}
+		System.out.println("Model Year:");
+		int modelYear = scanner.nextInt();
+		scanner.nextLine();
+		lease.setCar(modelYear);
+		for(LeasePrice l : LeasePrice.values()){
+			if( (l.getLowerLimit() <= modelYear) && (modelYear < l.getUpperLimit() )){
+				lease.setMonthlyCost(l.getPrice());
 			}
 		}
 
@@ -88,24 +116,40 @@ public class Menu {
 		lease.setLeaseEnd(scanner.nextInt());
 		scanner.nextLine();
 
-		if(command == 1) {
-			System.out.println("Monthly Cost: ");
-			lease.setMonthlyCost(scanner.nextInt());
-			scanner.nextLine();
+		System.out.println("Do you want extra services? yes/no");
+		String temp = (scanner.nextLine()).toLowerCase();
+		if(temp.equals("yes")){
+			System.out.println("Please enter type. (1 or 2)");
+			String type = scanner.nextLine();
+			if(type.equals("1")){
+				lease.setExtraServices(Type1_service);
+			}
+			else if(type.equals("2")){
+				lease.setExtraServices(Type2_service);
+			}
+			else {//if type is not valid, type is settled to type 1 by default (to the one whose cost is more)
+				lease.setExtraServices(Type1_service);
+			}
 		}
-
-		String s = "\nLease created!\n\n";
-		if(command == 2){
-			s = "\nLease created with model year as "+ lease.getCar().getCarModelYear() +"!\n";
+		else if(temp.equals("no")) {
+			lease.setExtraServices(null);
 		}
+		String s = "\nLease created with model year as "+ lease.getCar().getCarModelYear() +"!\n";
 		System.out.println(s);
 
+		insuranceList.add(lease);
+		if(lease.getExtraServices() != null){
+			insuranceList.add(lease.getExtraServices());
+		}
 		return lease;
 	}
 
-	public static int calculateCost(String OwnerId) {
+	public static double calculateCost(String OwnerId) {
 		for (Lease lease : leaseList) {
 			if(OwnerId.equals(lease.getLeaseId())){
+				if(lease.getExtraServices() != null){
+					return (lease.calculateTotalPrice() + lease.getExtraServices().getCost());
+				}
 				return lease.calculateTotalPrice();
 			}
 		}
