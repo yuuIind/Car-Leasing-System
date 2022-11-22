@@ -1,10 +1,11 @@
-public class Lease {
+public class Lease implements Insurance{
     private Car car;
     private int leaseStart;
     private int leaseEnd;
     private int monthlyCost;
-
     private String leaseId;
+
+    private ExtraServices extraServices;
     
     public Lease(){
         car = new Car();
@@ -32,23 +33,17 @@ public class Lease {
     }
 
     public void displayInfo(){
-        String s = "Lease of " + getCar().getCarBrandModel();
-        if(getCar().getCarModelYear() != 0){
-            s = s + " for the " + getCar().getCarModelYear() + " model year";
+        String s = "Lease of " + getCar().getCarBrandModel()
+                + " for the " + getCar().getCarModelYear() + " model year starts at "
+                + getLeaseStart() + ". Month ends at " + getLeaseEnd() + ". Month with cost "
+                + calculateTotalPrice();
+        if(extraServices != null){
+            s += "\nLease also has Extra Service type " + extraServices.getType()
+                    + " with cost " + extraServices.getCost();
         }
-        s += " starts at " + getLeaseStart() + ". Month ends at " + getLeaseEnd();
-        if(getLeaseEnd() < getLeaseStart()){ // check calculateTotalPrice()
-            s = s + ". Month of next year with cost " + calculateTotalPrice();
-        }
-        s += ". Month with cost " + calculateTotalPrice();
         System.out.println(s+"\n");
     }
-    public int calculateTotalPrice(){
-        if(getLeaseEnd() < getLeaseStart()){ 
-            //if the end date is less than the start date, assuming the end date is meant the next year, 
-            //lease period can still go up to 12 month at max. However, calculateTotalPrice needs this little tweak
-            return getMonthlyCost()*(getLeaseEnd() - getLeaseStart() + 13);
-        }
+    public double calculateTotalPrice(){
         return getMonthlyCost()*(getLeaseEnd() - getLeaseStart() + 1);
     }
 
@@ -74,8 +69,7 @@ public class Lease {
     }
 
     public void setLeaseStart(int leaseStart){
-        //if a correct month is not entered, start date will be assigned as january (1st month) by default
-        this.leaseStart = ((leaseStart > 0 && leaseStart < 13) ? leaseStart : 1); 
+        this.leaseStart = leaseStart;
     }
 
     public int getLeaseStart(){
@@ -83,8 +77,7 @@ public class Lease {
     }
 
     public void setLeaseEnd(int leaseEnd){
-        //if a correct month is not entered, end date will be assigned as december (12th month) by default
-        this.leaseEnd = ((leaseEnd > 0 && leaseEnd < 13) ? leaseEnd : 12);
+        this.leaseEnd = leaseEnd;
     }
 
     public int getLeaseEnd(){
@@ -105,5 +98,18 @@ public class Lease {
 
     public String getLeaseId(){
         return leaseId;
+    }
+
+    public void setExtraServices(ExtraServices extraServices) {
+        this.extraServices = extraServices;
+    }
+
+    public ExtraServices getExtraServices() {
+        return extraServices;
+    }
+
+    @Override
+    public double makeInsurance() {
+        return calculateTotalPrice()*((double) 25/100);
     }
 }
