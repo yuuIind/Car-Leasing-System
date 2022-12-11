@@ -1,3 +1,3 @@
 # 212-Assignments
 
-As part of your assignment this semester, you are required to develop a Car Leasing System.
+This week, you are expected to improve your existing Car Leasing System by adding pricing functionality according to the respective car’s model year.
