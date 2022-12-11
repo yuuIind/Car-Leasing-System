@@ -1,3 +1,5 @@
+import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -14,7 +16,7 @@ public class Menu {
 			System.out.println("1. Create new Lease");
 			System.out.println("2. Create new Short Term Lease");
 			System.out.println("3. Create new Long Term Lease");
-			System.out.println("4. Display all Leases");
+			System.out.println("4. Display all Leases sorted by the car model year");
 			System.out.println("5. Display Lease Price");
 			System.out.println("6. Calculate Insurances");
 			System.out.println("0. Exit");
@@ -39,6 +41,16 @@ public class Menu {
 					leaseList.add(createLease(3));
 					break;
 				case 4:
+					System.out.println("1. Ascending Order");
+					System.out.println("2. Descending Order");
+					int order = nScanner.nextInt();
+					nScanner.nextLine();
+					if (order == 1){
+						Collections.sort(leaseList);
+					}
+					else if (order == 2){
+						leaseList.sort(Collections.reverseOrder());
+					}
 					for (Lease lease : leaseList) {
 						lease.displayInfo();
 					}
@@ -95,10 +107,23 @@ public class Menu {
 		System.out.println("\nLease Owner ID:");
 		lease.setLeaseId(scanner.nextLine());
 
-		System.out.println("Model Year:");
-		int modelYear = scanner.nextInt();
-		scanner.nextLine();
-		lease.setCar(modelYear);
+		boolean continueLoop = true;
+		do {
+			try {
+				int modelYear;
+				System.out.println("Model Year:");
+				modelYear = scanner.nextInt();
+				scanner.nextLine();
+				lease.setCar(modelYear);
+				continueLoop = false;
+			}
+			catch (InputMismatchException e){
+				scanner.nextLine();
+				System.out.println("\nPlease enter the model year correctly!");
+			}
+		}while(continueLoop);
+
+		int modelYear = lease.getCarYear();
 		for(LeasePrice l : LeasePrice.values()){
 			if( (l.getLowerLimit() <= modelYear) && (modelYear < l.getUpperLimit() )){
 				lease.setMonthlyCost(l.getPrice());
@@ -118,7 +143,7 @@ public class Menu {
 
 		System.out.println("Do you want extra services? yes/no");
 		String temp = (scanner.nextLine()).toLowerCase();
-		if(temp.equals("yes")){
+		if(temp.equalsIgnoreCase("yes") || temp.equalsIgnoreCase("y")){
 			System.out.println("Please enter type. (1 or 2)");
 			String type = scanner.nextLine();
 			if(type.equals("1")){
@@ -131,7 +156,7 @@ public class Menu {
 				lease.setExtraServices(Type1_service);
 			}
 		}
-		else if(temp.equals("no")) {
+		else if(temp.equalsIgnoreCase("no") || temp.equalsIgnoreCase("n")) {
 			lease.setExtraServices(null);
 		}
 		String s = "\nLease created with model year as "+ lease.getCar().getCarModelYear() +"!\n";
@@ -148,6 +173,7 @@ public class Menu {
 		for (Lease lease : leaseList) {
 			if(OwnerId.equals(lease.getLeaseId())){
 				if(lease.getExtraServices() != null){
+					System.out.print("Including Extra Services ");
 					return (lease.calculateTotalPrice() + lease.getExtraServices().getCost());
 				}
 				return lease.calculateTotalPrice();

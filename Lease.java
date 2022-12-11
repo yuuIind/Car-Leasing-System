@@ -1,4 +1,6 @@
-public class Lease implements Insurance{
+import java.util.Objects;
+
+public class Lease implements Insurance, Comparable<Lease>{
     private Car car;
     private int leaseStart;
     private int leaseEnd;
@@ -68,6 +70,14 @@ public class Lease implements Insurance{
         return car;
     }
 
+    public int getCarYear(){
+        return car.getCarModelYear();
+    }
+
+    public String getCarBrand(){
+        return car.getCarBrandModel();
+    }
+
     public void setLeaseStart(int leaseStart){
         this.leaseStart = leaseStart;
     }
@@ -111,5 +121,28 @@ public class Lease implements Insurance{
     @Override
     public double makeInsurance() {
         return calculateTotalPrice()*((double) 25/100);
+    }
+
+    @Override
+    public int compareTo(Lease o) {
+        if(this.getCarYear() == o.getCarYear()){
+            if (this.getCarBrand().equalsIgnoreCase(o.getCarBrand())) {
+                if (this.getLeaseStart() == o.getLeaseStart()) {
+                    if (this.getLeaseEnd() == o.getLeaseEnd()) {
+                        if (this.getMonthlyCost() == o.getMonthlyCost()) {
+                            if (this.getLeaseId().equalsIgnoreCase(o.getLeaseId())) {
+                                return 0;
+                            }
+                            return this.getLeaseId().compareToIgnoreCase(o.getLeaseId());
+                        }
+                        return this.getMonthlyCost() - o.getMonthlyCost();
+                    }
+                    return this.getLeaseEnd() - o.getLeaseEnd();
+                }
+                return this.getLeaseStart() - o.getLeaseStart();
+            }
+            return this.getCarBrand().compareToIgnoreCase(o.getCarBrand());
+        }
+        return this.getCarYear() - o.getCarYear();
     }
 }
