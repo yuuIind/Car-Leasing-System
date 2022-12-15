@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -12,7 +14,11 @@ public class Menu {
 	public static void main(String[] args) {
 		int sysCommand;
 		Scanner nScanner = new Scanner(System.in);
-		do {
+		MainMenuGUI mainMenuGUI = new MainMenuGUI();
+		//MainMenuGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainMenuGUI.setSize(800,600);
+		mainMenuGUI.setVisible(true);
+		/*do {
 			System.out.println("1. Create new Lease");
 			System.out.println("2. Create new Short Term Lease");
 			System.out.println("3. Create new Long Term Lease");
@@ -57,12 +63,6 @@ public class Menu {
 					break;
 
 				case 5:
-					/*System.out.println("Lease price table\n");
-					for(LeasePrice l : LeasePrice.values()){
-						System.out.println("\tCars with model year between "
-						+ l.getLowerLimit() + " and " + ((l.getUpperLimit() != -1) ? (l.getUpperLimit()-1):"above")
-						+ ": $" + l.getPrice() + " per month\n");
-					}*/
 					Scanner scanner = new Scanner(System.in);
 					System.out.println("Please enter car lease owner id:");
 					String OwnerId = scanner.nextLine();
@@ -89,7 +89,7 @@ public class Menu {
 					System.out.println("Please, enter a valid command.\n");
 					break;
 			}
-		} while(sysCommand != 0);
+		} while(sysCommand != 0);*/
 	}
 	public static Lease createLease(int command) {
 		Scanner scanner = new Scanner(System.in);
