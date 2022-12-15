@@ -11,4 +11,3 @@ Improve Car Leasing System by adding Java Swing GUI capabilities.
 - If the user presses on the `Continue` button, they should **go back** to the *Main Menu*.
 - If the user presses on the `Cancel` button, the application should **terminate**.
 - If the user presses on the `Display All Leases` button, a window should pop up and display **all Leases** created.
-- 
