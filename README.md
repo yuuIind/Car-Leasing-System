@@ -10,7 +10,7 @@ As part of your assignment this semester, you are required to develop a Car Leas
 
 ## Overview
 
-This repository contains a Car Leasing System developed for CSE-212 Software Development Methodologies, Fall 2022. The project demonstrates the progression of development through various weekly assignments, culminating in a fully functional system with a graphical user interface.
+This repository contains a Car Leasing System developed for CSE-212 Software Development Methodologies, Fall 2022. The progression of development is shown through the branches, with each branch reflecting a different assignment. The main branch contains the final, fully functional system with a graphical user interface.
 
 ## Branches
 
@@ -35,11 +35,8 @@ This repository contains a Car Leasing System developed for CSE-212 Software Dev
 3. Compile and Run
   ```bash
   javac *.java
-  java MainClass
+  java Menu
   ```
-
-## Contributing
-Feel free to contribute by creating new branches or submitting pull requests. 
 
 ## Licence
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
