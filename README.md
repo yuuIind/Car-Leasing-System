@@ -30,7 +30,7 @@ This repository contains a Car Leasing System developed for CSE-212 Software Dev
    ```
 2. Navigate to the Desired Branch
   ```bash
-   git clone https://github.com/yourusername/CarLeasingSystem.git
+  git clone https://github.com/yourusername/CarLeasingSystem.git
   ```
 3. Compile and Run
   ```bash
