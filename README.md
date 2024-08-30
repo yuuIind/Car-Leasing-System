@@ -1,7 +1,45 @@
-# 212-Assignments
+<!-- # 212-Assignments
 
 As part of your assignment this semester, you are required to develop a Car Leasing System.
 
 ## Branches
 - Main branch is the latest version
-- Every other branch is the updated version of the previous branch according to required tasks for that particular assignment
+- Every other branch is the updated version of the previous branch according to required tasks for that particular assignment -->
+
+# Car Leasing System
+
+## Overview
+
+This repository contains a Car Leasing System developed for CSE-212 Software Development Methodologies, Fall 2022. The project demonstrates the progression of development through various weekly assignments, culminating in a fully functional system with a graphical user interface.
+
+## Branches
+
+- **`main`**: Final version of the Car Leasing System with all features integrated.
+- **`assignment1`**: Initial system setup with basic lease creation and display functionality.
+- **`assignment2`**: Introduction of the `Car` class and integration with the lease system.
+- **`assignment3`**: Enhanced pricing functionality based on car’s model year.
+- **`assignment4`**: Addition of `ExtraServices` class and functionality for optional services.
+- **`assignment5`**: Implementation of lease comparison and exception handling.
+- **`assignment6`**: Integration of Java Swing GUI for user-friendly interaction.
+
+## Usage
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/yourusername/CarLeasingSystem.git
+   ```
+2. Navigate to the Desired Branch
+  ```bash
+   git clone https://github.com/yourusername/CarLeasingSystem.git
+  ```
+3. Compile and Run
+  ```bash
+  javac *.java
+  java MainClass
+  ```
+
+## Contributing
+Feel free to contribute by creating new branches or submitting pull requests. 
+
+## Licence
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
