@@ -25,18 +25,18 @@ This repository contains a Car Leasing System developed for CSE-212 Software Dev
 ## Usage
 
 1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/yourusername/CarLeasingSystem.git
-   ```
-2. Navigate to the Desired Branch
-  ```bash
-  git clone https://github.com/yourusername/CarLeasingSystem.git
-  ```
+```bash
+git clone https://github.com/yourusername/CarLeasingSystem.git
+```
+3. Navigate to the Desired Branch
+```bash
+git clone https://github.com/yourusername/CarLeasingSystem.git
+```
 3. Compile and Run
-  ```bash
-  javac *.java
-  java Menu
-  ```
+```bash
+javac *.java
+java Menu
+```
 
 ## Licence
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
