@@ -15,12 +15,12 @@ This repository contains a Car Leasing System developed for CSE-212 Software Dev
 ## Branches
 
 - **`main`**: Final version of the Car Leasing System with all features integrated.
-- **`assignment1`**: Initial system setup with basic lease creation and display functionality.
-- **`assignment2`**: Introduction of the `Car` class and integration with the lease system.
-- **`assignment3`**: Enhanced pricing functionality based on car’s model year.
-- **`assignment4`**: Addition of `ExtraServices` class and functionality for optional services.
-- **`assignment5`**: Implementation of lease comparison and exception handling.
-- **`assignment6`**: Integration of Java Swing GUI for user-friendly interaction.
+- **`assignment-1`**: Initial system setup with basic lease creation and display functionality.
+- **`assignment-2`**: Introduction of the `Car` class and integration with the lease system.
+- **`assignment-3`**: Enhanced pricing functionality based on car’s model year.
+- **`assignment-4`**: Addition of `ExtraServices` class and functionality for optional services.
+- **`assignment-5`**: Implementation of lease comparison and exception handling.
+- **`assignment-6`**: Integration of Java Swing GUI for user-friendly interaction.
 
 ## Usage
 
@@ -30,7 +30,7 @@ git clone https://github.com/yourusername/CarLeasingSystem.git
 ```
 3. Navigate to the Desired Branch
 ```bash
-git clone https://github.com/yourusername/CarLeasingSystem.git
+git checkout assignment-x
 ```
 3. Compile and Run
 ```bash
