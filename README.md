@@ -57,7 +57,7 @@ This repository contains a Car Leasing System developed for CSE-212 Software Dev
 
 1. **Clone the Repository**
 ```bash
-git clone https://github.com/yourusername/CarLeasingSystem.git
+git clone https://github.com/yuuIind/CarLeasingSystem.git
 ```
 3. Navigate to the Desired Branch
 ```bash
